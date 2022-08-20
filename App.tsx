@@ -4,7 +4,8 @@ import * as SplashScreen from 'expo-splash-screen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './screens/HomeScreen';
-
+import RegisterScreen from './screens/RegisterScreen';
+import RegisterScreen2 from './screens/RegisterScreen2';
 
 if ((Text as any).defaultProps == null) (Text as any).defaultProps = {};
 (Text as any).defaultProps.allowFontScaling = false; 
@@ -17,7 +18,7 @@ const Stack = createNativeStackNavigator();
 
 
 export default function App() {
-  
+
   useEffect(() => {
     async function prepare() {
       try {
@@ -37,8 +38,10 @@ export default function App() {
 
   return (
     <NavigationContainer >
-    <Stack.Navigator initialRouteName='Home' screenOptions={{
+    <Stack.Navigator initialRouteName='Register' screenOptions={{
 headerShown : false , }}  >
+      <Stack.Screen name ="Register"  component = {RegisterScreen}  />
+      <Stack.Screen name ="Register2"  component = {RegisterScreen2}  />
       <Stack.Screen name ="Home"  component = {HomeScreen}  />
     </Stack.Navigator>
   </NavigationContainer>
@@ -47,3 +50,4 @@ headerShown : false , }}  >
 
   );
 }
+
