@@ -1,11 +1,14 @@
 import { useEffect,useState } from "react";
-import { View,Text,Image,StyleSheet, TouchableOpacity,Dimensions } from "react-native";
+import { View,Text,Image,StyleSheet, TouchableOpacity,Dimensions,TextInput } from "react-native";
+import {COLORS} from '../FontColor'
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 export default function RegisterScreen2({navigation}:any)
 {
+    const [texts, onChangeText] = useState("");
+
     const [text, setText] = useState(true);
     const TextAnimation = () => 
     {
@@ -19,17 +22,28 @@ export default function RegisterScreen2({navigation}:any)
     setTimeout(TextAnimation, 2000)
     return (
     <View style = {styles.container}>
-        
-        <View style = {styles.logoView}>
-            <Image style = {styles.logo} source={require('../assets/logo.png')} />         
-            <Text style = {styles.h6}>이곳은 어딜까</Text>
+        <View style = {styles.indicatorView}>
+        <View style = {styles.indicator1}></View>
+        <View style = {styles.line}></View>        
+        <View style = {styles.indicator2}></View>
+        <View style = {styles.line}></View>        
+        <View style = {styles.indicator3}></View>
         </View>
-        <TouchableOpacity onPress = {()=> {alert("시작하기를 눌렀습니다")}}>
-        <View style = {styles.buttonLarge}>
-            <Text style = {styles.caption}>시작하기</Text> 
-        </View>
-        </TouchableOpacity> 
 
+        <View style = {styles.SignupWrapper}>
+        <Text style = {styles.signupFont}>안녕하세요</Text>
+        <View style = {{flexDirection : "row"}}><Text style ={{...styles.signupFont, color : COLORS.hand_blue}}>이름<Text style = {styles.signupFont}>을 입력해주세요.</Text></Text></View>
+        <View style = {styles.textarea}>
+        <TextInput
+        style={styles.input}
+        onChangeText={onChangeText}
+        value={texts}
+        placeholder = "이름을 입력하세요"
+      /></View>
+        </View>
+        <View style = {styles.buttonLarge}>
+            <Text style = {styles.caption} onPress = {() => alert("본인 인증하기를 눌렀습니다")}>본인 인증하기</Text> 
+        </View>        
     </View>
     );
 }
@@ -39,35 +53,82 @@ container :
 {
     flex : 1,
     backgroundColor : "white",
-
 }, 
-logoView :
+input: {
+    width: 320,
+    height: 40,
+    // backgroundColor: colors.WHITE,
+    borderBottomWidth : 1,
+    borderBottomColor: COLORS.hand_blue,
+    // shadowColor: COLORS.hand_blue,
+    shadowOffset: {
+      width: 0,
+      height: 0
+    },
+    shadowRadius: 0,
+    shadowOpacity: 1
+  },
+SignupWrapper :
 {
     flex : 1,
+    marginTop : 30,
+    marginLeft : 30,
+},
+signupButton :
+{
+    flex : 1,
+},
+signupFont :
+{
+  marginTop : 30,
+//   fontFamily: "OpenSans",
+  fontSize: 20,
+  fontWeight: "bold",
+  fontStyle: "normal",
+  letterSpacing: -0.56,
+  textAlign: "left",
+  color: "grey"
+    
+},
+indicatorView:
+{
+    marginTop : 80,
+    flexDirection : "row",
     alignItems : "center",
     justifyContent : "center",
+    marginHorizontal : 30,
 },
-textView :
+indicator1 :
 {
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    backgroundColor: "rgb(255,196,31)",
+    marginHorizontal : 20,
 },
-logo : 
-{   
-    width : windowWidth * 0.445,
-    height : windowHeight * 0.1,
-},
+indicator2 :
+{
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    backgroundColor: "#68727e",
+    marginHorizontal : 20,
 
-h6 :
+},
+indicator3 :
 {
-    width: windowWidth * 0.706,
-    height: windowHeight * 0.08,
-    // fontFamily: "OpenSans",
-    marginTop : 50,
-    fontSize: 20,
-    fontWeight: "bold",
-    fontStyle: "normal",
-    letterSpacing: -0.56,
-    textAlign: "center",
-    color : "rgb(104,114,126)"
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    backgroundColor: "#68727e",
+    marginHorizontal : 20,
+
+},
+line :
+{
+    width: 40,
+    height: 1,
+    backgroundColor: "#b9b9c3"
 },
 buttonLarge : {
     alignItems : "center",
@@ -87,10 +148,12 @@ buttonLarge : {
     shadowOpacity: 1,
 
   },
+  textarea :
+  {
+    marginTop:50,
+  },
   caption :
   {
-    width: 54,
-    height: 21,
     // fontFamily: "OpenSans",
     fontSize: 14,
     fontWeight: "bold",
