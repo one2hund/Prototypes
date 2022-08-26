@@ -37,15 +37,13 @@ export default function App() {
 
 
   return (
-    <NavigationContainer >
-    <Stack.Navigator initialRouteName='Register' screenOptions={{
-headerShown : false , }}  >
+    <NavigationContainer>
+    <Stack.Navigator initialRouteName='Register' screenOptions={{headerShown : false , }}  >
       <Stack.Screen name ="Register"  component = {RegisterScreen}  />
       <Stack.Screen name ="Register2"  component = {RegisterScreen2}  />
       <Stack.Screen name ="Home"  component = {HomeScreen}  />
-    </Stack.Navigator>
+      </Stack.Navigator>
   </NavigationContainer>
-
 
 
   );

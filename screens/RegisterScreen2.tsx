@@ -1,13 +1,17 @@
-import { useEffect,useState } from "react";
+import { useEffect,useState,useMemo,Component } from "react";
 import { View,Text,Image,StyleSheet, TouchableOpacity,Dimensions,TextInput } from "react-native";
 import {COLORS} from '../FontColor'
+import {Picker} from '@react-native-picker/picker';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
-
 export default function RegisterScreen2({navigation}:any)
 {
+    const [step,setStep] = useState(0);
     const [texts, onChangeText] = useState("");
+    const [birthday, onChangeBirthday] = useState("");
+    const [sexcode, onChangeSexCode] = useState("");
+    const [selectedLanguage, setSelectedLanguage] = useState();
 
     const [text, setText] = useState(true);
     const TextAnimation = () => 
@@ -19,6 +23,21 @@ export default function RegisterScreen2({navigation}:any)
             setText(true)
         }
     }
+
+
+    const stepChanger = (data:any) =>
+    {
+      if (step == 0 && texts.length >= 2)
+        setStep(1)
+      else if (step == 1 && (birthday.length == 6 && sexcode.length == 1)) 
+        setStep(2)
+      else
+        alert("제대로 입력 해주세요")
+    }
+
+
+
+
     setTimeout(TextAnimation, 2000)
     return (
     <View style = {styles.container}>
@@ -32,17 +51,65 @@ export default function RegisterScreen2({navigation}:any)
 
         <View style = {styles.SignupWrapper}>
         <Text style = {styles.signupFont}>안녕하세요</Text>
-        <View style = {{flexDirection : "row"}}><Text style ={{...styles.signupFont, color : COLORS.hand_blue}}>이름<Text style = {styles.signupFont}>을 입력해주세요.</Text></Text></View>
+        {step == 0 ? <View style = {{flexDirection : "row"}}><Text style ={{...styles.signupFont, color : COLORS.hand_blue}}>이름<Text style = {styles.signupFont}>을 입력해주세요.</Text></Text></View> : null}
+        {step == 1 ? <View style = {{flexDirection : "row"}}><Text style ={{...styles.signupFont, color : COLORS.hand_blue}}>주민등록번호<Text style = {styles.signupFont}>를 입력해주세요.</Text></Text></View> : null}
+        {step == 2 ? <View style = {{flexDirection : "row"}}><Text style = {styles.signupFont}>사용하시는 </Text><Text style ={{...styles.signupFont, color : COLORS.hand_blue}}>통신사<Text style = {styles.signupFont}>를 선택해주세요.</Text></Text></View> : null}
+
         <View style = {styles.textarea}>
-        <TextInput
-        style={styles.input}
-        onChangeText={onChangeText}
-        value={texts}
-        placeholder = "이름을 입력하세요"
-      /></View>
+        {step == 0 ? (<TextInput
+      style={styles.input}
+      onChangeText={onChangeText}
+      value={texts}
+      placeholder = "이름을 입력하세요"
+    />) : null}
+      {step == 1? <View>
+        <View style = {{flexDirection : "row"}}>
+          <TextInput
+            keyboardType='numeric' style={styles.inputbirth} onChangeText={onChangeBirthday} value={birthday}
+            placeholder = "생년월일 6자리" maxLength={6}/>
+          <View style = {{alignItems : "center",justifyContent : "center"}}><Text> - </Text></View>
+            <TextInput
+            style={{...styles.inputbirth, width : 30, marginHorizontal : 0,}}
+            keyboardType='numeric' onChangeText={onChangeSexCode}
+            value={sexcode} secureTextEntry={true} maxLength={1}/>
+            <Text style = {{fontSize : 10, marginTop : 12,}}>● ● ● ● ● ●</Text>
+          </View>
+          <TextInput
+            style={styles.input} onChangeText={onChangeText} value={texts} placeholder = "이름을 입력하세요" />
+        </View> : null
+      } 
+      {step == 2? <View>
+        <View><Picker
+  selectedValue={selectedLanguage}
+  onValueChange={(itemValue, itemIndex) =>
+    setSelectedLanguage(itemValue)
+  }>
+  <Picker.Item label="SKT" value="skt" />
+  <Picker.Item label="KT" value="kt" />
+  <Picker.Item label="LGU+" value="lg" />
+  <Picker.Item label="SKT알뜰폰" value="skl" />
+  <Picker.Item label="KT알뜰폰" value="ktl" />
+  <Picker.Item label="LG알뜰폰" value="lgl" />
+</Picker></View>
+        <View style = {{flexDirection : "row"}}>
+          <View></View>
+          <TextInput
+            keyboardType='numeric' style={styles.inputbirth} onChangeText={onChangeBirthday} value={birthday}
+            placeholder = "생년월일 6자리" maxLength={6}/>
+          <View style = {{alignItems : "center",justifyContent : "center"}}><Text> - </Text></View>
+            <TextInput
+            style={{...styles.inputbirth, width : 30, marginHorizontal : 0,}}
+            keyboardType='numeric' onChangeText={onChangeSexCode}
+            value={sexcode} secureTextEntry={true} maxLength={1}/>
+            <Text style = {{fontSize : 10, marginTop : 12,}}>● ● ● ● ● ●</Text>
+          </View>
+          <TextInput
+            style={styles.input} onChangeText={onChangeText} value={texts} placeholder = "이름을 입력하세요" />
+        </View> : null}
+      </View>
         </View>
         <View style = {styles.buttonLarge}>
-            <Text style = {styles.caption} onPress = {() => alert("본인 인증하기를 눌렀습니다")}>본인 인증하기</Text> 
+            <Text style = {styles.caption} onPress = {stepChanger}>본인 인증하기</Text> 
         </View>        
     </View>
     );
@@ -57,6 +124,22 @@ container :
 input: {
     width: 320,
     height: 40,
+    // backgroundColor: colors.WHITE,
+    borderBottomWidth : 1,
+    borderBottomColor: COLORS.hand_blue,
+    // shadowColor: COLORS.hand_blue,
+    shadowOffset: {
+      width: 0,
+      height: 0
+    },
+    shadowRadius: 0,
+    shadowOpacity: 1
+  },
+  inputbirth: {
+    width: 150,
+    height: 40,
+    textAlign : "center",
+    marginHorizontal : 20,
     // backgroundColor: colors.WHITE,
     borderBottomWidth : 1,
     borderBottomColor: COLORS.hand_blue,

@@ -1,6 +1,6 @@
 import { useEffect,useState } from "react";
 import { View,Text,Image,StyleSheet, TouchableOpacity,Dimensions } from "react-native";
-
+import {COLORS} from '../FontColor'
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
@@ -77,7 +77,8 @@ buttonLarge : {
     height: windowHeight * 0.075,
     marginHorizontal : 16,
     borderRadius: 8,
-    backgroundColor: "rgb(50,171,239)",
+    backgroundColor: COLORS.hand_blue,
+
     shadowColor: "rgba(97, 97, 97, 0.2)",
     shadowOffset: {
       width: 0,
