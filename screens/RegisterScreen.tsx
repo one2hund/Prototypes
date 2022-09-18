@@ -7,22 +7,24 @@ const windowHeight = Dimensions.get('window').height;
 export default function RegisterScreen({navigation}:any)
 {
     const [text, setText] = useState(true);
+
     const TextAnimation = () => 
     {
-        if(text == true)
-            setText(false)
-        else
-        {
-            setText(true)
-        }
+        if(text == true) {setText(false)}
+        else {setText(true)}    
     }
+
     setTimeout(TextAnimation, 2000)
+    
     return (
     <View style = {styles.container}>
         
         <View style = {styles.logoView}>
             <Image style = {styles.logo} source={require('../assets/logo.png')} />         
-            {text ? <Text style = {styles.h6}>우리 학교에서 {"\n"}도움을 주고받는</Text> : <Text style = {styles.h6}>가장{"\n"}손쉬운 방법</Text>}
+            {text ? 
+            <Text style = {styles.h6}>우리 학교에서 {"\n"}도움을 주고받는</Text> : 
+            <Text style = {styles.h6}>가장{"\n"}손쉬운 방법</Text>
+            }
         </View>
         <TouchableOpacity onPress = {()=> navigation.navigate("Register2")}>
         <View style = {styles.buttonLarge}>
@@ -90,7 +92,7 @@ buttonLarge : {
   },
   caption :
   {
-    width: 54,
+    width: 70,
     height: 21,
     // fontFamily: "OpenSans",
     fontSize: 14,

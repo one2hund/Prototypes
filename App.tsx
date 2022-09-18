@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './screens/HomeScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import RegisterScreen2 from './screens/RegisterScreen2';
+import MainScreen from './screens/MainScreen';
 
 if ((Text as any).defaultProps == null) (Text as any).defaultProps = {};
 (Text as any).defaultProps.allowFontScaling = false; 
@@ -42,6 +43,8 @@ export default function App() {
       <Stack.Screen name ="Register"  component = {RegisterScreen}  />
       <Stack.Screen name ="Register2"  component = {RegisterScreen2}  />
       <Stack.Screen name ="Home"  component = {HomeScreen}  />
+      <Stack.Screen name ="Main"  component = {MainScreen}  />
+
       </Stack.Navigator>
   </NavigationContainer>
 

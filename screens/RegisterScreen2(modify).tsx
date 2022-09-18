@@ -2,10 +2,12 @@ import { useEffect,useState,useMemo,Component } from "react";
 import { View,Text,Image,StyleSheet, TouchableOpacity,Dimensions,TextInput, KeyboardAvoidingView } from "react-native";
 import {COLORS} from '../FontColor'
 import {Picker} from '@react-native-picker/picker';
-import Indicator from "../Componet/Indicator";
+
 
 const windowWidth = Dimensions.get('window').width; 
 const windowHeight = Dimensions.get('window').height;
+
+
 
 
 export default function RegisterScreen2({navigation}:any)
@@ -27,7 +29,7 @@ export default function RegisterScreen2({navigation}:any)
       texts:string
     }
 
-    const RegisterName = (props:any) =>
+    const loginSequence = (props:any) =>
     {
         <TextInput
         style={styles.input}
@@ -37,7 +39,7 @@ export default function RegisterScreen2({navigation}:any)
       />
     }
 
-    const stepChanger = () =>
+    const stepChanger = (data:any) =>
     {
       if (step == 0 && texts.length >= 2)
         setStep(1)
@@ -132,12 +134,19 @@ const Step2 = (prop:any) =>
 
 
 
-
     return (
     <View style = {styles.container}>
-      <Indicator />
+        <View style = {styles.indicatorView}>
+        <View style = {styles.indicator1}></View>
+        <View style = {styles.line}></View>        
+        <View style = {styles.indicator2}></View>
+        <View style = {styles.line}></View>        
+        <View style = {styles.indicator3}></View>
+        </View>
+
         <View style = {styles.SignupWrapper}>
         <Text style = {styles.signupFont}>안녕하세요</Text>
+
         {step == 0 ? <Description1 title =  {"이름"}/> : null}
         {step == 1 ? <Description1 title =  {"주민등록번호"} /> : null}
         {step == 2 ? <Description2 title = {"통신사"} /> : null}
@@ -220,7 +229,6 @@ const Step2 = (prop:any) =>
 }
 
 const styles = StyleSheet.create({
-  
 container :
 {
     flex : 1,
@@ -283,7 +291,46 @@ signupFont :
   color: "grey"
     
 },
+indicatorView:
+{
+    marginTop : 80,
+    flexDirection : "row",
+    alignItems : "center",
+    justifyContent : "center",
+    marginHorizontal : 30,
+},
+indicator1 :
+{
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    backgroundColor: "rgb(255,196,31)",
+    marginHorizontal : 20,
+},
+indicator2 :
+{
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    backgroundColor: "#68727e",
+    marginHorizontal : 20,
 
+},
+indicator3 :
+{
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    backgroundColor: "#68727e",
+    marginHorizontal : 20,
+
+},
+line :
+{
+    width: 40,
+    height: 1,
+    backgroundColor: "#b9b9c3"
+},
 buttonLarge : {
     alignItems : "center",
     justifyContent : "center",
